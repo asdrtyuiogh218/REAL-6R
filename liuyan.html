@@ -3,13 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Text to Email</title>
+    <title>Send Email via Vercel</title>
 </head>
 <body>
-    <form action="send_email.php" method="POST">
+    <form id="emailForm">
         <label for="message">Your Message:</label><br>
         <textarea id="message" name="message" rows="10" cols="30" placeholder="Type your message here..."></textarea><br><br>
         <button type="submit">Send Email</button>
     </form>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const message = document.getElementById('message').value;
+
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        });
+    </script>
 </body>
 </html>
