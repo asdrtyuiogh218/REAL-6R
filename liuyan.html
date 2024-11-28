@@ -3,30 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send Email via Vercel</title>
+    <title>Send to WhatsApp</title>
 </head>
 <body>
-    <form id="emailForm">
+    <form id="whatsappForm">
         <label for="message">Your Message:</label><br>
         <textarea id="message" name="message" rows="10" cols="30" placeholder="Type your message here..."></textarea><br><br>
-        <button type="submit">Send Email</button>
+        <button type="submit">Send to WhatsApp</button>
     </form>
 
     <script>
-        document.getElementById('emailForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        document.getElementById('whatsappForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent the form from submitting traditionally
+
             const message = document.getElementById('message').value;
+            const phoneNumber = '+601156499152'; // Replace with the recipient's phone number (without "+" or spaces)
 
-            const response = await fetch('/api/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message })
-            });
+            // Create the WhatsApp URL
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
-            const result = await response.json();
-            alert(result.message);
+            // Redirect the user to WhatsApp
+            window.open(whatsappUrl, '_blank');
         });
     </script>
 </body>
