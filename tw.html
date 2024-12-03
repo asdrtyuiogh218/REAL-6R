@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send a Message to My WhatsApp</title>
+</head>
+<body>
+    <h1>Send a Message to My WhatsApp</h1>
+    <form id="whatsappForm">
+        <label for="opinion">Select Your Opinion:</label><br>
+        <select id="opinion" name="opinion">
+            <option value="意见">意见</option>
+            <option value="错误">错误</option>
+            <option value="漏洞">漏洞</option>
+            <option value="其他">其他</option>
+        </select><br><br>
+
+        <label for="message">Your Message:</label><br>
+        <textarea id="message" name="message" rows="10" cols="30" placeholder="Type your message here..."></textarea><br><br>
+
+        <button type="submit">Send to My WhatsApp</button>
+    </form>
+
+    <script>
+        document.getElementById('whatsappForm').addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent form submission
+
+            const opinion = document.getElementById('opinion').value; // Get the selected opinion
+            const message = document.getElementById('message').value; // Get the message content
+            const myPhoneNumber = '601156499152'; // Replace with YOUR WhatsApp phone number (e.g., 60123456789 for Malaysia)
+
+            if (!message) {
+                alert('Please enter a message before sending.');
+                return;
+            }
+
+            // Construct the WhatsApp URL with opinion and message
+            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(`Opinion: ${opinion}\nMessage: ${message}`)}`;
+
+            // Open the WhatsApp chat
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
